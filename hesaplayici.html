@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMÜ Tıp Not Hesaplama</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+.footer-imza {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid #e1e5eb;
+        font-size: 13px;
+        color: #6c757d;
+        font-weight: 600;
+    }
+    .footer-imza span {
+        color: var(--omu-lacivert);
+        font-weight: 700;
+    }
+    :root {
+        --omu-lacivert: #0b1e36;
+        --omu-mavi: #174276;
+        --gri-arkaplan: #f4f6f9;
+        --kirmizi: #d90429;
+        --yesil: #2b9348;
+    }
+    body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: var(--gri-arkaplan); 
+        padding: 20px 10px; 
+        color: #2b2d42;
+        margin: 0;
+    }
+    .container { 
+        max-width: 700px; 
+        margin: 0 auto; 
+        background: #ffffff; 
+        padding: 25px; 
+        border-radius: 12px; 
+        box-shadow: 0 8px 24px rgba(11, 30, 54, 0.08); 
+    }
+    h2 { 
+        text-align: center; 
+        color: var(--omu-lacivert);
+        padding-bottom: 10px; 
+        margin-bottom: 15px;
+        font-size: 24px;
+        font-weight: 800;
+    }
+    
+    /* Dönem Seçici (Ana Sekme) */
+    .donem-selector {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        background: #e9ecef;
+        padding: 6px;
+        border-radius: 10px;
+    }
+    .donem-btn {
+        flex: 1;
+        padding: 10px;
+        background: transparent;
+        color: #495057;
+        border: none;
+        border-radius: 6px;
+        font-weight: 800;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .donem-btn.active {
+        background: var(--omu-lacivert);
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(11,30,54,0.2);
+    }
+    
+    /* Araç Seçici (Alt Sekme) */
+    .tab-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e1e5eb;
+        padding-bottom: 15px;
+    }
+    .tab-btn {
+        flex: 1;
+        padding: 10px;
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e1e5eb;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .tab-btn.active {
+        background: var(--omu-lacivert);
+        color: #fff;
+        border-color: var(--omu-lacivert);
+    }
+    
+    .donem-content, .tab-content { display: none; }
+    .donem-content.active, .tab-content.active { display: block; }
+
+    .uyari-metni {
+        text-align: center;
+        font-size: 14px;
+        color: #6c757d;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    .row { 
+        background: #fff;
+        margin-bottom: 12px; 
+        padding: 12px 15px; 
+        border-radius: 8px; 
+        border: 1px solid #e1e5eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .row-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .row label { 
+        font-size: 15px; 
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--omu-lacivert);
+    }
+    .row label i, .row label svg {
+        color: var(--omu-mavi);
+        width: 20px;
+        height: 20px;
+        text-align: center;
+    }
+    .badge-group { display: flex; gap: 5px; }
+    .badge { 
+        font-size: 11px; 
+        color: #fff; 
+        background: var(--omu-mavi);
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+    .badge.kredi { background: #6c757d; }
+    input[type="number"] { 
+        width: 65px; 
+        padding: 10px; 
+        font-size: 16px; 
+        font-weight: 800;
+        border: 2px solid #e1e5eb; 
+        border-radius: 6px; 
+        text-align: center;
+        color: var(--omu-lacivert);
+    }
+    input[type="number"]:focus { outline: none; border-color: var(--omu-mavi); }
+    input[type="number"]::placeholder { font-size: 12px; font-weight: 600; color: #adb5bd; }
+    
+    .hedef-section {
+        margin-top: 25px;
+        padding: 20px;
+        background: #e9ecef;
+        border-radius: 8px;
+        border-left: 5px solid var(--omu-mavi);
+    }
+    .hedef-section .row { background: transparent; border: none; padding: 5px 0; margin-bottom: 10px; }
+    
+    button.action-btn { 
+        width: 100%; 
+        padding: 16px; 
+        background-color: var(--omu-lacivert); 
+        color: white; 
+        border: none; 
+        font-size: 16px; 
+        font-weight: 700;
+        border-radius: 8px; 
+        cursor: pointer; 
+        margin-top: 20px; 
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .sonuc-alani { margin-top: 25px; display: none; }
+    .sonuc-kutu {
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        background: #fff;
+        border: 1px solid #e1e5eb;
+    }
+    .sonuc-baslik {
+        font-size: 18px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 15px;
+        color: var(--omu-lacivert);
+        border-bottom: 2px solid #f4f6f9;
+        padding-bottom: 10px;
+    }
+    .istatistik-satir {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px dashed #e1e5eb;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .istatistik-satir:last-child { border-bottom: none; }
+    .deger-gosterge { font-size: 18px; font-weight: 800; }
+    .imkansiz { color: var(--kirmizi); }
+    .garanti { color: var(--yesil); }
+    .normal { color: var(--omu-mavi); }
+</style>
+</head>
+<body>
+<div class="footer-imza">
+        Created with Gemini by <span>anlcdot</span>
+    </div>
+<div class="container">
+    <h2><i class="fa-solid fa-stethoscope"></i> OMÜ Tıp Not Hesaplayıcı </h2>
+    
+    <!-- Dönem Seçici -->
+    <div class="donem-selector">
+        <button class="donem-btn active" onclick="donemDegistir('donem2', this)">DÖNEM 2</button>
+        <button class="donem-btn" onclick="donemDegistir('donem3', this)">DÖNEM 3</button>
+    </div>
+
+    <!-- DÖNEM 2 İÇERİĞİ -->
+    <div id="donem2" class="donem-content active">
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="sekmeDegistir('d2-std', this, 'd2')">Standart Hesaplayıcı</button>
+            <button class="tab-btn" onclick="sekmeDegistir('d2-sim', this, 'd2')">Senaryo Simülatörü</button>
+        </div>
+
+        <div id="d2-std" class="tab-content active">
+            <div class="uyari-metni">Kesin durumu görmek için tüm blok, PDÖ ve MDU notlarınızı eksiksiz girin.</div>
+            <div id="d2-dersler-std"></div>
+            <div class="hedef-section">
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-users-rays"></i> PDÖ Notu</label></div>
+                    <input type="number" id="d2_std_pdo" min="0" max="100" placeholder="Not">
+                </div>
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-user-doctor"></i> MDU Notu</label></div>
+                    <input type="number" id="d2_std_mdu" min="0" max="100" placeholder="Not">
+                </div>
+            </div>
+            <button class="action-btn" onclick="hesaplaStandart('d2')">Ortalamayı Hesapla</button>
+            <div id="d2-sonuc-std" class="sonuc-alani"></div>
+        </div>
+
+        <div id="d2-sim" class="tab-content">
+            <div class="uyari-metni">Notunu bildiğin dersleri gir, bilmediklerini BOŞ BIRAK.</div>
+            <div id="d2-dersler-sim"></div>
+            <div class="hedef-section">
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-users-rays"></i> PDÖ Notu</label></div>
+                    <input type="number" id="d2_sim_pdo" min="0" max="100" placeholder="Tahmin">
+                </div>
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-user-doctor"></i> MDU Notu</label></div>
+                    <input type="number" id="d2_sim_mdu" min="0" max="100" placeholder="Tahmin">
+                </div>
+                <div class="row" style="border-top: 1px solid #ced4da; padding-top: 15px; margin-top: 10px;">
+                    <div class="row-info"><label><i class="fa-solid fa-bullseye"></i> Hedeflenen Final Barajı</label></div>
+                    <input type="number" id="d2_sim_hedef" min="0" max="100" value="49.5">
+                </div>
+            </div>
+            <button class="action-btn" onclick="hesaplaSenaryo('d2')">Yol Haritası Çıkar</button>
+            <div id="d2-sonuc-sim" class="sonuc-alani"></div>
+        </div>
+    </div>
+
+    <!-- DÖNEM 3 İÇERİĞİ -->
+    <div id="donem3" class="donem-content">
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="sekmeDegistir('d3-std', this, 'd3')">Standart Hesaplayıcı</button>
+            <button class="tab-btn" onclick="sekmeDegistir('d3-sim', this, 'd3')">Senaryo Simülatörü</button>
+        </div>
+
+        <div id="d3-std" class="tab-content active">
+            <div class="uyari-metni">Kesin durumu görmek için tüm blok, PDÖ ve MDU notlarınızı eksiksiz girin.</div>
+            <div id="d3-dersler-std"></div>
+            <div class="hedef-section">
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-users-rays"></i> PDÖ Notu</label></div>
+                    <input type="number" id="d3_std_pdo" min="0" max="100" placeholder="Not">
+                </div>
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-user-doctor"></i> MDU Notu</label></div>
+                    <input type="number" id="d3_std_mdu" min="0" max="100" placeholder="Not">
+                </div>
+            </div>
+            <button class="action-btn" onclick="hesaplaStandart('d3')">Ortalamayı Hesapla</button>
+            <div id="d3-sonuc-std" class="sonuc-alani"></div>
+        </div>
+
+        <div id="d3-sim" class="tab-content">
+            <div class="uyari-metni">Notunu bildiğin dersleri gir, bilmediklerini BOŞ BIRAK.</div>
+            <div id="d3-dersler-sim"></div>
+            <div class="hedef-section">
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-users-rays"></i> PDÖ Notu</label></div>
+                    <input type="number" id="d3_sim_pdo" min="0" max="100" placeholder="Tahmin">
+                </div>
+                <div class="row">
+                    <div class="row-info"><label><i class="fa-solid fa-user-doctor"></i> MDU Notu</label></div>
+                    <input type="number" id="d3_sim_mdu" min="0" max="100" placeholder="Tahmin">
+                </div>
+                <div class="row" style="border-top: 1px solid #ced4da; padding-top: 15px; margin-top: 10px;">
+                    <div class="row-info"><label><i class="fa-solid fa-bullseye"></i> Hedeflenen Final Barajı</label></div>
+                    <input type="number" id="d3_sim_hedef" min="0" max="100" value="49.5">
+                </div>
+            </div>
+            <button class="action-btn" onclick="hesaplaSenaryo('d3')">Yol Haritası Çıkar</button>
+            <div id="d3-sonuc-sim" class="sonuc-alani"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Veri Yapıları
+    const mufredat = {
+        'd2': [
+            { ad: 'Büyüme Gelişme ve Davranış', akts: 6, kredi: 5, icon: 'fa-child-reaching' },
+            { ad: 'Beyin ve Duyular', akts: 7, kredi: 7, icon: 'fa-brain' },
+            { ad: 'Etik ve Tıbbi Araştırmalar', akts: 5, kredi: 4, icon: 'fa-scale-balanced' },
+            { ad: 'Kan', akts: 5, kredi: 5, icon: 'fa-droplet' },
+            { ad: 'Zedelenme', akts: 3, kredi: 3, icon: 'fa-bone' },
+            { ad: 'Savunma', akts: 7, kredi: 5, icon: 'fa-shield-virus' },
+            { ad: 'Biyolojik Etkenler', akts: 7, kredi: 4, icon: 'fa-bacterium' },
+            { ad: 'Seçmeli', akts: 4, kredi: 3, icon: 'fa-book-medical' }
+        ],
+        'd3': [
+            { ad: 'Tıpta Profesyonellik', akts: 2, kredi: 1, icon: 'fa-user-tie' },
+            { ad: 'Gebelik ve Doğum', akts: 5, kredi: 3, icon: 'fa-baby' },
+            { ad: 'Tümörler', akts: 5, kredi: 3, icon: 'fa-disease' },
+            { ad: 'Solunum ve Dolaşım', akts: 6, kredi: 4, icon: 'fa-lungs' },
+            { ad: 'Travma', akts: 5, kredi: 3, icon: 'fa-crutch' },
+            { ad: 'Enfeksiyon', akts: 5, kredi: 5, icon: 'fa-virus' },
+            { ad: 'Endokrin Sistem', akts: 5, kredi: 5, icon: 'fa-dna' },
+            { ad: 'Sindirim Sistemi', akts: 5, kredi: 3, svg: `<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M27.2501 6C28.3415 6 29.3543 6.33661 30.1904 6.91167C29.9539 7.28228 29.7477 7.68802 29.5714 8.12871C29.3663 8.6415 29.6157 9.22347 30.1285 9.42857C30.6413 9.63368 31.2233 9.38425 31.4284 8.87146C31.8542 7.80688 32.4624 7.12162 33.2401 6.6842C33.9833 6.26621 34.9539 6.0341 36.211 6.00364C39.427 6.11479 42 8.75692 42 12C42 13.5367 41.4223 14.9385 40.4722 16C41.4223 17.0615 42 18.4633 42 20C42 21.9858 41.0353 23.7463 39.5489 24.8384C41.0206 25.7554 42 27.3884 42 29.2501C42 32.1189 39.6744 34.4446 36.8056 34.4446C35.0314 34.4446 33.4649 33.5551 32.5278 32.1977C32.1668 32.7207 31.7123 33.1742 31.1885 33.5342C30.4115 35.1254 30.0492 36.3993 30 38.1317V42H26V37.32C25.8819 35.7752 25.4006 34.5096 24.4522 32.7939C23.5859 31.8658 23.0557 30.6199 23.0557 29.2501C23.0557 26.3813 25.3813 24.0557 28.2501 24.0557C29.0247 24.0557 29.7598 24.2252 30.4201 24.5293C30.8926 24.7945 31.2397 25.0628 31.5101 25.3602C31.9689 25.8649 32.2894 26.5459 32.5194 27.6961C32.6277 28.2377 33.1545 28.5889 33.6961 28.4806C34.2377 28.3723 34.5889 27.8455 34.4806 27.3039C34.2106 25.9542 33.7811 24.8851 32.9899 24.0148C32.3349 23.2943 31.4916 22.7771 30.4656 22.3214C30.1657 21.6074 30 20.823 30 20C30 18.4633 30.5777 17.0615 31.5278 16C31.2507 15.6905 31.0054 15.352 30.7967 14.9897C29.8684 15.8576 28.6213 16.3889 27.2501 16.3889C25.4933 16.3889 23.9402 15.5167 23.0001 14.1818C22.06 15.5167 20.5069 16.3889 18.7501 16.3889C17.2616 16.3889 15.9193 15.7628 14.9723 14.7596C14.7216 15.0251 14.4433 15.2642 14.1419 15.4723C15.4994 16.4093 16.3889 17.9758 16.3889 19.7501C16.3889 20.8063 16.0737 21.7888 15.5323 22.6088C14.5043 21.8918 13.3565 21.5 12.0001 21.5C11.4478 21.5 11.0001 21.9477 11.0001 22.5C11.0001 23.0523 11.4478 23.5 12.0001 23.5C13.1662 23.5 14.1503 23.9091 15.1536 24.8872C15.924 25.7934 16.3889 26.9675 16.3889 28.2501C16.3889 30.0855 15.437 31.6985 14 32.6225V35.5C14 36.3284 13.3284 37 12.5 37C11.6716 37 11 36.3284 11 35.5V33.441C8.22129 33.3387 6.00003 31.0538 6.00003 28.2501C6.00003 26.4933 6.87217 24.9402 8.20712 24.0001C6.87217 23.06 6.00003 21.5069 6.00003 19.7501C6.00003 17.9758 6.88958 16.4094 8.24702 15.4723C6.88956 14.5352 6 12.9687 6 11.1944C6 8.32563 8.32563 6 11.1944 6C12.6829 6 14.0252 6.62609 14.9723 7.62928C15.9193 6.62609 17.2616 6 18.7501 6C20.5069 6 22.06 6.87215 23.0001 8.20709C23.9402 6.87215 25.4933 6 27.2501 6Z" fill="currentColor"/></svg>` },
+            { ad: 'Yaşlanma', akts: 5, kredi: 3, icon: 'fa-person-cane' },
+            { ad: 'Nöropsikiyatriye Giriş', akts: 5, kredi: 3, icon: 'fa-brain' },
+            { ad: 'Seçmeli', akts: 4, kredi: 3, icon: 'fa-book-medical' }
+        ]
+    };
+
+    const toplamAKTS = { d2: 0, d3: 0 };
+    const toplamKredi = { d2: 0, d3: 0 };
+    
+    ['d2', 'd3'].forEach(donem => {
+        toplamAKTS[donem] = mufredat[donem].reduce((s, d) => s + d.akts, 0);
+        toplamKredi[donem] = mufredat[donem].reduce((s, d) => s + d.kredi, 0);
+    });
+
+    // Menü ve Sekme Kontrolleri
+    function donemDegistir(donemId, btnElement) {
+        document.querySelectorAll('.donem-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.donem-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(donemId).classList.add('active');
+        btnElement.classList.add('active');
+    }
+
+    function sekmeDegistir(sekmeId, btnElement, donem) {
+        document.querySelectorAll(`#donem${donem.charAt(1)} .tab-content`).forEach(el => el.classList.remove('active'));
+        document.querySelectorAll(`#donem${donem.charAt(1)} .tab-btn`).forEach(el => el.classList.remove('active'));
+        document.getElementById(sekmeId).classList.add('active');
+        btnElement.classList.add('active');
+    }
+
+    // Arayüz Çiziciler
+    function arayuzDoldur(donem, type) {
+        const container = document.getElementById(`${donem}-dersler-${type}`);
+        mufredat[donem].forEach((ders, index) => {
+            const iconHTML = ders.svg ? ders.svg : `<i class="fa-solid ${ders.icon}"></i>`;
+            const row = document.createElement('div');
+            row.className = 'row';
+            row.innerHTML = `
+                <div class="row-info">
+                    <label>${iconHTML} ${ders.ad}</label>
+                    <div class="badge-group">
+                        <span class="badge">${ders.akts} AKTS</span>
+                        <span class="badge kredi">${ders.kredi} Kredi</span>
+                    </div>
+                </div>
+                <input type="number" id="${donem}_${type}_${index}" min="0" max="100" placeholder="${type === 'std' ? 'Not' : 'Boş'}">
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    ['d2', 'd3'].forEach(d => { arayuzDoldur(d, 'std'); arayuzDoldur(d, 'sim'); });
+
+    // Yardımcı Matematik Fonksiyonları
+    function degerFormatla(deger) {
+        if (deger > 100) return `<span class="deger-gosterge imkansiz">İmkansız (${deger.toFixed(1)})</span>`;
+        if (deger <= 0) return `<span class="deger-gosterge garanti">0 (Garantilendi)</span>`;
+        return `<span class="deger-gosterge normal">${deger.toFixed(2)}</span>`;
+    }
+
+    function finalFormulu(blokOrt, pdo, mdu) {
+        let req = (6602.5 - (blokOrt * 50 + pdo * 10 + mdu * 10)) / 25;
+        return req < 49.5 ? 49.5 : req;
+    }
+
+    // Standart Hesaplayıcı Algoritması
+    function hesaplaStandart(donem) {
+        let puanAKTS = 0, puanKredi = 0, eksik = false;
+        mufredat[donem].forEach((ders, index) => {
+            const val = document.getElementById(`${donem}_std_${index}`).value;
+            if (val === '') eksik = true;
+            else {
+                puanAKTS += parseFloat(val) * ders.akts;
+                puanKredi += parseFloat(val) * ders.kredi;
+            }
+        });
+
+        const pdoVal = document.getElementById(`${donem}_std_pdo`).value;
+        const mduVal = document.getElementById(`${donem}_std_mdu`).value;
+        if (eksik || pdoVal === '' || mduVal === '') {
+            alert("Tüm notları eksiksiz girmelisiniz.");
+            return;
+        }
+
+        const ortAKTS = puanAKTS / toplamAKTS[donem];
+        const ortKredi = puanKredi / toplamKredi[donem];
+        const sonucDiv = document.getElementById(`${donem}-sonuc-std`);
+        sonucDiv.style.display = 'block';
+
+        let html = `<div class="sonuc-kutu">
+            <div class="istatistik-satir"><span>AKTS Ortalaması:</span> <span class="deger-gosterge normal">${ortAKTS.toFixed(2)}</span></div>
+            <div class="istatistik-satir"><span>Kredi Ortalaması:</span> <span class="deger-gosterge normal">${ortKredi.toFixed(2)}</span></div>`;
+
+        if (ortAKTS >= 79.5 && ortKredi >= 79.5) {
+            html += `<div class="istatistik-satir"><span style="color:var(--yesil); font-weight:800; text-align:center; width:100%; margin-top:10px;">Tebrikler! Sınıfı finalsiz geçtiniz.</span></div>`;
+        } else if (ortAKTS >= 79.5 || ortKredi >= 79.5) {
+            html += `<div class="istatistik-satir"><span style="color:var(--yesil); font-weight:800; text-align:center; width:100%; margin-top:10px;">Tebrikler! Sınıfı yüksek ihtimalle finalsiz geçtiniz.</span></div>`;
+            if (ortAKTS < 79.5) html += `<div class="istatistik-satir"><span>AKTS'ye Göre Final İhtiyacı:</span> <span class="deger-gosterge imkansiz">${finalFormulu(ortAKTS, pdoVal, mduVal).toFixed(2)}</span></div>`;
+            if (ortKredi < 79.5) html += `<div class="istatistik-satir"><span>Krediye Göre Final İhtiyacı:</span> <span class="deger-gosterge imkansiz">${finalFormulu(ortKredi, pdoVal, mduVal).toFixed(2)}</span></div>`;
+        } else {
+            html += `<div class="istatistik-satir"><span style="color:var(--kirmizi); font-weight:800; text-align:center; width:100%; margin-top:10px;">Finallere kalıyorsunuz.</span></div>`;
+            html += `
+            <div class="istatistik-satir"><span>AKTS'ye Göre Final İhtiyacı:</span> <span class="deger-gosterge imkansiz">${finalFormulu(ortAKTS, pdoVal, mduVal).toFixed(2)}</span></div>
+            <div class="istatistik-satir"><span>Krediye Göre Final İhtiyacı:</span> <span class="deger-gosterge imkansiz">${finalFormulu(ortKredi, pdoVal, mduVal).toFixed(2)}</span></div>`;
+        }
+        sonucDiv.innerHTML = html + "</div>";
+    }
+
+    // Senaryo Simülatörü Algoritması
+    function hesaplaSenaryo(donem) {
+        let doluAKTS = 0, doluKredi = 0, puanAKTS = 0, puanKredi = 0, bosSayisi = 0;
+        
+        mufredat[donem].forEach((ders, index) => {
+            const val = document.getElementById(`${donem}_sim_${index}`).value;
+            if (val !== '') {
+                puanAKTS += parseFloat(val) * ders.akts;
+                doluAKTS += ders.akts;
+                puanKredi += parseFloat(val) * ders.kredi;
+                doluKredi += ders.kredi;
+            } else { bosSayisi++; }
+        });
+
+        const pdoVal = document.getElementById(`${donem}_sim_pdo`).value;
+        const mduVal = document.getElementById(`${donem}_sim_mdu`).value;
+        if (pdoVal === '' || mduVal === '') { alert("PDÖ ve MDU notlarını tahmini olarak girmelisiniz."); return; }
+
+        const sonucDiv = document.getElementById(`${donem}-sonuc-sim`);
+        sonucDiv.style.display = 'block';
+
+        if (bosSayisi === 0) {
+            alert("Hiç boş ders bırakmadınız. Kesin hesaplama için 'Standart Hesaplayıcı' sekmesini kullanın.");
+            sonucDiv.style.display = 'none'; return;
+        }
+
+        const pdo = parseFloat(pdoVal), mdu = parseFloat(mduVal);
+        const hedefFinal = parseFloat(document.getElementById(`${donem}_sim_hedef`).value || 49.5);
+        
+        const bosAKTS = toplamAKTS[donem] - doluAKTS;
+        const bosKredim = toplamKredi[donem] - doluKredi;
+
+        const reqEksiAKTS_Muaf = (79.5 * toplamAKTS[donem] - puanAKTS) / bosAKTS;
+        const reqEksiKredi_Muaf = (79.5 * toplamKredi[donem] - puanKredi) / bosKredim;
+
+        const reqBlokOrt = (6602.5 - (pdo * 10 + mdu * 10 + hedefFinal * 25)) / 50;
+        const reqEksiAKTS_Gecme = (reqBlokOrt * toplamAKTS[donem] - puanAKTS) / bosAKTS;
+        const reqEksiKredi_Gecme = (reqBlokOrt * toplamKredi[donem] - puanKredi) / bosKredim;
+
+        sonucDiv.innerHTML = `
+            <div class="sonuc-kutu">
+                <div class="sonuc-baslik"><i class="fa-solid fa-trophy"></i> Finalsiz Geçmek İçin (79.5)</div>
+                <div style="font-size:13px; color:#6c757d; margin-bottom:10px; text-align:center;">Kalan ${bosSayisi} bloktan alman gereken ortalama:</div>
+                <div class="istatistik-satir"><span>AKTS'ye Göre:</span> ${degerFormatla(reqEksiAKTS_Muaf)}</div>
+                <div class="istatistik-satir"><span>Krediye Göre:</span> ${degerFormatla(reqEksiKredi_Muaf)}</div>
+            </div>
+            <div class="sonuc-kutu">
+                <div class="sonuc-baslik"><i class="fa-solid fa-person-walking-arrow-right"></i> Finale Kalırsan Sınıfı Geçmek İçin</div>
+                <div style="font-size:13px; color:#6c757d; margin-bottom:10px; text-align:center;">Finalden <strong>${hedefFinal}</strong> almak şartıyla kalan bloklardan alman gereken ortalama:</div>
+                <div class="istatistik-satir"><span>AKTS'ye Göre:</span> ${degerFormatla(reqEksiAKTS_Gecme)}</div>
+                <div class="istatistik-satir"><span>Krediye Göre:</span> ${degerFormatla(reqEksiKredi_Gecme)}</div>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>
