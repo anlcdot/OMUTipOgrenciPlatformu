@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMÜ Tıp Öğrenci Platformu</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --omu-lacivert: #0b1e36;
+        --omu-mavi: #174276;
+        --gri-arkaplan: #f4f6f9;
+        --kirmizi: #d90429;
+    }
+    body { 
+        font-family: 'Inter', sans-serif; 
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 40px 15px;
+
+    /* ARKA PLAN FOTOĞRAFI AYARLARI */
+    background: 
+        /* Üzerine attığımız yarı saydam lacivert filtre (yazılar okunsun diye) */
+        linear-gradient(rgba(11, 30, 54, 0.85), rgba(11, 30, 54, 0.92)),
+        /* Resmin linki (ister internet linki, ister klasöründeki resim.jpg) */
+        url('https://upload.wikimedia.org/wikipedia/commons/f/f8/Om%C3%BC_-_T%C4%B1p_Fak%C3%BCltesi.JPG?utm_source=tr.wikipedia.org&utm_campaign=index&utm_content=original');
+    
+    background-size: cover;       /* Ekranı tamamen kaplasın */
+    background-position: center;   /* Resmi ortalasın */
+    background-attachment: fixed;  /* Sayfa kaysa bile resim sabit kalsın */
+    }
+    .container { 
+        width: 100%;
+        max-width: 650px; 
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+    .header i.main-icon {
+        font-size: 40px;
+        color: #f2fafa;
+        margin-bottom: 12px;
+    }
+    .header h1 {
+        margin: 0;
+        font-size: 26px;
+        font-weight: 800;
+        color: #f2fafa;
+    }
+    .header p {
+        margin: 8px 0 0 0;
+        font-size: 15px;
+        color: #9aeded;
+        font-weight: 600;
+    }
+
+    /* Grid Kart Tasarımı */
+    .grid-menu {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .card {
+        background: #ffffff;
+        padding: 22px 20px;
+        border-radius: 12px;
+        border: 1px solid #e1e5eb;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 12px rgba(11, 30, 54, 0.04);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(11, 30, 54, 0.1);
+        border-color: var(--omu-mavi);
+        transform: translateY(-4px) scale(1.01); /* 4px havaya kalkar ve hafif büyür */
+        background: rgba(255, 255, 255, 0.8);   /* Saydamlığı biraz açılır, parlar */
+        border-color: rgba(255, 255, 255, 0.4); /* Kenarlık belirginleşir */
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+    .card-left {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        background: #f0f4f8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: var(--omu-mavi);
+        flex-shrink: 0;
+    }
+    .card-text h3 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--omu-lacivert);
+    }
+    .card-text p {
+        margin: 4px 0 0 0;
+        font-size: 13px;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    .arrow-icon {
+        color: #adb5bd;
+        font-size: 16px;
+        transition: transform 0.2s;
+    }
+    .card:hover .arrow-icon {
+        transform: translateX(4px);
+        color: var(--omu-mavi);
+    }
+
+    /* Footer */
+    .footer {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 13px;
+        color: #9aeded;
+        font-weight: 600;
+    }
+    .footer span {
+        color: #f2fafa;
+        font-weight: 700;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <i class="fa-solid fa-staff-snake main-icon"></i>
+        <h1>OMÜ Tıp Öğrenci Portalı</h1>
+        <p>Güncel Not Hesaplayıcı ve Ders Arşivi</p>
+    </div>
+
+    <div class="grid-menu">      
+        <!-- Kart 1: Not Hesaplayıcı -->
+        <a href="donem3.html" class="card">
+            <div class="card-left">
+                <div class="icon-box">
+                    <i class="fa-solid fa-stethoscope"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Not Hesaplama Araçları</h3>
+                    <p>Finalsiz geçme ihtimali ve final barajı hesaplayıcı</p>
+                </div>
+            </div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
+
+        <!-- Kart 2: Kaynaklar -->
+        <a href="kaynaklar.html" class="card">
+            <div class="card-left">
+                <div class="icon-box">
+                    <i class="fa-solid fa-folder-open"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Ders Kaynakları & Arşiv</h3>
+                    <p>Blok drive linkleri, çıkmış sorular ve çalışma notları</p>
+                </div>
+            </div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
+
+        <!-- Kart 3: İletişim & Geri Bildirim -->
+        <a href="iletisim.html" class="card">
+            <div class="card-left">
+                <div class="icon-box">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Geri Bildirim & İletişim</h3>
+                    <p>Hesaplama araçlarıyla ilgili problemleri lütfen bildiriniz. </p>
+                </div>
+            </div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
+    </div>
+
+    <div class="footer">
+        Created by <span>Anıl Çırak</span>
+    </div>
+</div>
+
+</body>
+</html>
