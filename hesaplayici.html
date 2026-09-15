@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<a href="index.html" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: #174276; font-weight: 700; font-size: 14px; margin-bottom: 15px;">
-    <i class="fa-solid fa-arrow-left"></i> Ana Menüye Dön
-</a>        
 <title>OMÜ Tıp Not Hesaplama</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -227,6 +224,18 @@
 </style>
 </head>
 <body>
+<div class="container">
+    <!-- İŞTE BURAYA GELECEK (Kutunun en tepe noktası) -->
+    <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #174276; font-weight: 700; font-size: 14px; margin-bottom: 20px;">
+        <i class="fa-solid fa-arrow-left"></i> Ana Menüye Dön
+    </a>
+
+    <h2><i class="fa-solid fa-stethoscope"></i> OMÜ Başarı Platformu</h2>
+    
+    <div class="donem-selector">
+        <button class="donem-btn active" onclick="donemDegistir('donem2', this)">DÖNEM 2</button>
+        <button class="donem-btn" onclick="donemDegistir('donem3', this)">DÖNEM 3</button>
+    </div>    
 <div class="footer-imza">
         Created with Gemini by <span>anlcdot</span>
     </div>
