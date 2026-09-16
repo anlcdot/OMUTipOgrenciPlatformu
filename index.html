@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OMÜ Tıp Öğrenci Platformu</title>
+
 <!-- PWA Manifest Bağlantısı -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b1e36">
@@ -18,8 +19,10 @@
     });
   }
 </script>    
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
     :root {
         --omu-lacivert: #263069;
@@ -29,24 +32,19 @@
     }
     body { 
         font-family: 'Inter', sans-serif; 
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 40px 15px;
-
-    /* ARKA PLAN FOTOĞRAFI AYARLARI */
-    background: 
-        /* Üzerine attığımız yarı saydam lacivert filtre (yazılar okunsun diye) */
-        linear-gradient(rgba(11, 30, 54, 0.85), rgba(11, 30, 54, 0.92)),
-        /* Resmin linki (ister internet linki, ister klasöründeki resim.jpg) */
-        url('https://upload.wikimedia.org/wikipedia/commons/f/f8/Om%C3%BC_-_T%C4%B1p_Fak%C3%BCltesi.JPG?utm_source=tr.wikipedia.org&utm_campaign=index&utm_content=original');
-    
-    background-size: cover;       /* Ekranı tamamen kaplasın */
-    background-position: center;   /* Resmi ortalasın */
-    background-attachment: fixed;  /* Sayfa kaysa bile resim sabit kalsın */
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 40px 15px;
+        background: 
+            linear-gradient(rgba(11, 30, 54, 0.85), rgba(11, 30, 54, 0.92)),
+            url('https://upload.wikimedia.org/wikipedia/commons/f/f8/Om%C3%BC_-_T%C4%B1p_Fak%C3%BCltesi.JPG?utm_source=tr.wikipedia.org&utm_campaign=index&utm_content=original');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
     }
     .container { 
         width: 100%;
@@ -54,7 +52,7 @@
     }
     .header {
         text-align: center;
-        margin-bottom: 35px;
+        margin-bottom: 25px;
     }
     .header i.main-icon {
         font-size: 40px;
@@ -72,6 +70,36 @@
         font-size: 15px;
         color: #9aeded;
         font-weight: 600;
+    }
+
+    /* PWA Yükleme Butonu Alanı */
+    .pwa-wrap {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .pwa-btn {
+        display: none; /* Varsayılan olarak kapalı */
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin: 0 auto;
+        padding: 9px 18px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .pwa-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-1px);
+    }
+    .pwa-btn.aktif {
+        display: inline-flex; /* Sadece PWA desteklenince görünür */
     }
 
     /* Grid Kart Tasarımı */
@@ -94,12 +122,9 @@
         transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
     .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(11, 30, 54, 0.1);
-        border-color: var(--omu-mavi);
-        transform: translateY(-4px) scale(1.01); /* 4px havaya kalkar ve hafif büyür */
-        background: rgba(255, 255, 255, 0.8);   /* Saydamlığı biraz açılır, parlar */
-        border-color: rgba(255, 255, 255, 0.4); /* Kenarlık belirginleşir */
+        transform: translateY(-4px) scale(1.01);
+        background: rgba(255, 255, 255, 0.95);
+        border-color: rgba(255, 255, 255, 0.4);
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
     }
     .card-left {
@@ -164,19 +189,26 @@
         <p>Güncel Not Hesaplayıcı ve Ders Arşivi</p>
     </div>
 
+    <!-- Kibar PWA Butonu (Başlığın hemen altında, menüden önce) -->
+    <div class="pwa-wrap">
+        <button id="pwa-install-btn" class="pwa-btn">
+            <i class="fa-solid fa-download"></i> Uygulamayı Telefona Yükle
+        </button>
+    </div>
+
     <div class="grid-menu">      
         <!-- Kart 1: Not Hesaplayıcı -->
         <a href="hesaplayici.html" class="card">
             <div class="card-left">
-              <div class="icon-box">
-                 <i class="fa-solid fa-calculator"></i>
+                <div class="icon-box">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Not Hesaplama Araçları</h3>
+                    <p>Finalsiz geçme ihtimali ve final barajı hesaplayıcı</p>
+                </div>
             </div>
-            <div class="card-text">
-                 <h3>Not Hesaplama Araçları</h3>
-                 <p>Finalsiz geçme ihtimali ve final barajı hesaplayıcı</p>
-            </div>
-         </div>
-         <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </a>
 
         <!-- Kart 2: Kaynaklar -->
@@ -201,7 +233,7 @@
                 </div>
                 <div class="card-text">
                     <h3>Geri Bildirim & İletişim</h3>
-                    <p>Hesaplama araçlarıyla ilgili problemleri lütfen bildiriniz. </p>
+                    <p>Hesaplama araçlarıyla ilgili problemleri lütfen bildiriniz.</p>
                 </div>
             </div>
             <i class="fa-solid fa-chevron-right arrow-icon"></i>
@@ -212,10 +244,6 @@
         Created by <span>Anıl Çırak</span>
     </div>
 </div>
-<!-- index.html içine göze çarpan yükleme butonu (başlangıçta gizli) -->
-<button id="pwa-install-btn" style="display:none; width:100%; padding:12px; background:#174276; color:#fff; border:none; border-radius:8px; font-weight:700; margin-bottom:15px; cursor:pointer;">
-    <i class="fa-solid fa-download"></i> Uygulamayı Telefona Yükle
-</button>
 
 <script>
 let deferredPrompt;
@@ -224,20 +252,25 @@ const installBtn = document.getElementById('pwa-install-btn');
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    // Tarayıcı hazır olduğunda butonu göster
-    installBtn.style.display = 'block';
-});
-
-installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-            installBtn.style.display = 'none';
-        }
-        deferredPrompt = null;
+    // PWA kurulumu uygunsa butonu görünür yap
+    if (installBtn) {
+        installBtn.classList.add('aktif');
     }
 });
+
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                installBtn.classList.remove('aktif');
+            }
+            deferredPrompt = null;
+        }
+    });
+}
 </script>
+
 </body>
 </html>
