@@ -7,20 +7,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-
-.footer-imza {
-        text-align: center;
-        margin-top: 25px;
-        padding-top: 15px;
-        border-top: 1px solid #e1e5eb;
-        font-size: 13px;
-        color: #6c757d;
-        font-weight: 600;
-    }
-    .footer-imza span {
-        color: var(--omu-lacivert);
-        font-weight: 700;
-    }
     :root {
         --omu-lacivert: #0b1e36;
         --omu-mavi: #174276;
@@ -43,9 +29,19 @@
         border-radius: 12px; 
         box-shadow: 0 8px 24px rgba(11, 30, 54, 0.08); 
     }
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--omu-mavi);
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
     h2 { 
         text-align: center; 
-        color: var(--omu-lacivert);
+        color: var(--omu-lacivert); 
         padding-bottom: 10px; 
         margin-bottom: 15px;
         font-size: 24px;
@@ -190,6 +186,32 @@
         text-transform: uppercase;
         letter-spacing: 1px;
     }
+    .btn-container-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    .btn-container-actions button.action-btn {
+        margin-top: 0;
+    }
+    .temizle-link {
+        background: none;
+        border: none;
+        color: #94a3b8;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: color 0.2s;
+    }
+    .temizle-link:hover {
+        color: var(--kirmizi);
+    }
     .sonuc-alani { margin-top: 25px; display: none; }
     .sonuc-kutu {
         padding: 20px;
@@ -221,20 +243,29 @@
     .imkansiz { color: var(--kirmizi); }
     .garanti { color: var(--yesil); }
     .normal { color: var(--omu-mavi); }
+
+    .footer-imza {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid #e1e5eb;
+        font-size: 13px;
+        color: #6c757d;
+        font-weight: 600;
+    }
+    .footer-imza span {
+        color: var(--omu-lacivert);
+        font-weight: 700;
+    }
 </style>
 </head>
 <body>
 <div class="container">
-    <!-- İŞTE BURAYA GELECEK (Kutunun en tepe noktası) -->
-    <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #174276; font-weight: 700; font-size: 14px; margin-bottom: 20px;">
+    <a href="index.html" class="back-btn">
         <i class="fa-solid fa-arrow-left"></i> Ana Menüye Dön
     </a>
 
-<div class="footer-imza">
-        Created with Gemini by <span>anlcdot</span>
-    </div>
-<div class="container">
-    <h2><i class="fa-solid fa-stethoscope"></i> OMÜ Tıp Not Hesaplayıcı </h2>
+    <h2><i class="fa-solid fa-stethoscope"></i> OMÜ Tıp Not Hesaplayıcı</h2>
     
     <!-- Dönem Seçici -->
     <div class="donem-selector">
@@ -262,7 +293,12 @@
                     <input type="number" id="d2_std_mdu" min="0" max="100" placeholder="Not">
                 </div>
             </div>
-            <button class="action-btn" onclick="hesaplaStandart('d2')">Ortalamayı Hesapla</button>
+            <div class="btn-container-actions">
+                <button class="action-btn" onclick="hesaplaStandart('d2')">Ortalamayı Hesapla</button>
+                <button type="button" class="temizle-link" onclick="hafizayiTemizle('d2', 'std')">
+                    <i class="fa-solid fa-trash-can"></i> Bu Sekmedeki Notları Temizle
+                </button>
+            </div>
             <div id="d2-sonuc-std" class="sonuc-alani"></div>
         </div>
 
@@ -283,7 +319,12 @@
                     <input type="number" id="d2_sim_hedef" min="0" max="100" value="49.5">
                 </div>
             </div>
-            <button class="action-btn" onclick="hesaplaSenaryo('d2')">Yol Haritası Çıkar</button>
+            <div class="btn-container-actions">
+                <button class="action-btn" onclick="hesaplaSenaryo('d2')">Yol Haritası Çıkar</button>
+                <button type="button" class="temizle-link" onclick="hafizayiTemizle('d2', 'sim')">
+                    <i class="fa-solid fa-trash-can"></i> Bu Sekmedeki Notları Temizle
+                </button>
+            </div>
             <div id="d2-sonuc-sim" class="sonuc-alani"></div>
         </div>
     </div>
@@ -308,7 +349,12 @@
                     <input type="number" id="d3_std_mdu" min="0" max="100" placeholder="Not">
                 </div>
             </div>
-            <button class="action-btn" onclick="hesaplaStandart('d3')">Ortalamayı Hesapla</button>
+            <div class="btn-container-actions">
+                <button class="action-btn" onclick="hesaplaStandart('d3')">Ortalamayı Hesapla</button>
+                <button type="button" class="temizle-link" onclick="hafizayiTemizle('d3', 'std')">
+                    <i class="fa-solid fa-trash-can"></i> Bu Sekmedeki Notları Temizle
+                </button>
+            </div>
             <div id="d3-sonuc-std" class="sonuc-alani"></div>
         </div>
 
@@ -329,9 +375,18 @@
                     <input type="number" id="d3_sim_hedef" min="0" max="100" value="49.5">
                 </div>
             </div>
-            <button class="action-btn" onclick="hesaplaSenaryo('d3')">Yol Haritası Çıkar</button>
+            <div class="btn-container-actions">
+                <button class="action-btn" onclick="hesaplaSenaryo('d3')">Yol Haritası Çıkar</button>
+                <button type="button" class="temizle-link" onclick="hafizayiTemizle('d3', 'sim')">
+                    <i class="fa-solid fa-trash-can"></i> Bu Sekmedeki Notları Temizle
+                </button>
+            </div>
             <div id="d3-sonuc-sim" class="sonuc-alani"></div>
         </div>
+    </div>
+
+    <div class="footer-imza">
+        Created by <span>Anıl Çırak</span>
     </div>
 </div>
 
@@ -408,6 +463,66 @@
     }
 
     ['d2', 'd3'].forEach(d => { arayuzDoldur(d, 'std'); arayuzDoldur(d, 'sim'); });
+
+    // --- LOCALSTORAGE (HAFIZA) YÖNETİMİ ---
+    const STORAGE_KEY = 'omu_tip_not_hafizasi';
+
+    function notlariKaydet() {
+        const girdiler = document.querySelectorAll('input[type="number"]');
+        const veri = {};
+        girdiler.forEach(input => {
+            if (input.id && input.value !== '') {
+                veri[input.id] = input.value;
+            }
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(veri));
+    }
+
+    function notlariYukle() {
+        const kayit = localStorage.getItem(STORAGE_KEY);
+        if (!kayit) return;
+
+        try {
+            const veri = JSON.parse(kayit);
+            Object.keys(veri).forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.value = veri[id];
+                }
+            });
+        } catch (e) {
+            console.error("Hafıza yüklenirken hata oluştu:", e);
+        }
+    }
+
+    function hafizayiTemizle(donem, type) {
+        if (!confirm("Bu sekmedeki tüm notları temizlemek istediğinize emin misiniz?")) return;
+
+        // İlgili sekmenin inputlarını sıfırla
+        const container = document.getElementById(`${donem}-${type}`);
+        if (container) {
+            const inputs = container.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+        }
+
+        // Sonuç alanını gizle
+        const sonucDiv = document.getElementById(`${donem}-sonuc-${type}`);
+        if (sonucDiv) {
+            sonucDiv.style.display = 'none';
+            sonucDiv.innerHTML = '';
+        }
+
+        // LocalStorage'ı güncelle
+        notlariKaydet();
+    }
+
+    // Inputları dinle ve sayfayı başlat
+    notlariYukle();
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', notlariKaydet);
+    });
 
     // Yardımcı Matematik Fonksiyonları
     function degerFormatla(deger) {
@@ -519,6 +634,5 @@
         `;
     }
 </script>
-
 </body>
 </html>
