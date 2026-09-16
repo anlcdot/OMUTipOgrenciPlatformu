@@ -11,6 +11,7 @@
         --omu-lacivert: #0b1e36;
         --omu-mavi: #174276;
         --gri-arkaplan: #f4f6f9;
+        --acik-mavi: #e8f0fe;
     }
     body { 
         font-family: 'Inter', sans-serif; 
@@ -46,7 +47,7 @@
     h2 { 
         text-align: center; 
         color: var(--omu-lacivert); 
-        margin: 0 0 10px 0;
+        margin: 0 0 8px 0;
         font-size: 22px;
         font-weight: 800;
     }
@@ -54,26 +55,35 @@
         text-align: center;
         color: #64748b;
         font-size: 14px;
-        margin-bottom: 25px;
+        margin-bottom: 24px;
         line-height: 1.5;
+    }
+    .section-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 22px 0 10px 4px;
     }
     .iletisim-kart {
         border: 1px solid #e1e5eb;
         border-radius: 10px;
-        padding: 16px 20px;
-        margin-bottom: 14px;
+        padding: 14px 18px;
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         background: #fafbfc;
         text-decoration: none;
         color: inherit;
-        transition: all 0.2s;
+        transition: all 0.2s ease;
     }
     .iletisim-kart:hover {
         border-color: var(--omu-mavi);
         background: #ffffff;
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(23, 66, 118, 0.08);
     }
     .kart-sol {
         display: flex;
@@ -81,14 +91,31 @@
         gap: 14px;
     }
     .kart-sol i {
-        font-size: 24px;
+        font-size: 22px;
         color: var(--omu-mavi);
         width: 30px;
         text-align: center;
     }
-    .kart-yazi h4 { margin: 0; font-size: 15px; color: var(--omu-lacivert); font-weight: 700; }
-    .kart-yazi p { margin: 2px 0 0 0; font-size: 13px; color: #64748b; }
-    
+    .kart-yazi h4 { 
+        margin: 0; 
+        font-size: 15px; 
+        color: var(--omu-lacivert); 
+        font-weight: 700; 
+    }
+    .kart-yazi p { 
+        margin: 3px 0 0 0; 
+        font-size: 13px; 
+        color: #64748b; 
+    }
+    .badge-anonim {
+        font-size: 11px;
+        background: #e2e8f0;
+        color: #475569;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: 700;
+        margin-left: 6px;
+    }
     .footer-imza {
         text-align: center;
         margin-top: 35px;
@@ -110,28 +137,46 @@
 
     <h2><i class="fa-solid fa-envelope-open-text"></i> Geri Bildirim & İletişim</h2>
     <p class="aciklama">
-        Hesaplamalarda gördüğünüz bir hata, güncellenen kurul kredileri veya eklenmesini istediğiniz ders arşivleri için iletişime geçebilirsiniz.
+        Hesaplama aracındaki formül hatalarını bildirebilir, arşive yeni not/çıkmış katkısında bulunabilir veya doğrudan mail atabilirsiniz.
     </p>
 
-    <!-- Google Forms / Hata Bildirimi -->
-    <a href="#" target="_blank" class="iletisim-kart">
+    <!-- BİLDİRİM FORMLARI -->
+    <div class="section-title">Bildirim Formları</div>
+
+    <!-- Hata Bildirimi -->
+    <a href="BURAYA_GOOGLE_FORM_HATA_LINKI" target="_blank" class="iletisim-kart">
         <div class="kart-sol">
             <i class="fa-solid fa-bug"></i>
             <div class="kart-yazi">
-                <h4>Hata / Yanlış Not Bildir</h4>
-                <p>Google Form üzerinden anonim olarak ilet</p>
+                <h4>Hata Bildirimi <span class="badge-anonim">Anonim</span></h4>
+                <p>Kredi uyuşmazlığı, hesaplama hatası veya sistem önerisi ilet</p>
             </div>
         </div>
-        <i class="fa-solid fa-chevron-right" style="color:#adb5bd;"></i>
+        <i class="fa-solid fa-arrow-up-right-from-square" style="color:#94a3b8; font-size:13px;"></i>
     </a>
 
-    <!-- Kaynak Ekleme Talebi -->
-    <a href="#" target="_blank" class="iletisim-kart">
+    <!-- Kaynak Katkısı -->
+    <a href="BURAYA_GOOGLE_FORM_KAYNAK_LINKI" target="_blank" class="iletisim-kart">
         <div class="kart-sol">
             <i class="fa-solid fa-cloud-arrow-up"></i>
             <div class="kart-yazi">
-                <h4>Kaynak / Not Katkısı Yap</h4>
-                <p>Elinizdeki Drive ve ders notlarını ekletin</p>
+                <h4>Kaynak Katkısı</h4>
+                <p>Elinizdeki blok drive klasörlerini ve eksik çıkmışları gönderin</p>
+            </div>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square" style="color:#94a3b8; font-size:13px;"></i>
+    </a>
+
+    <!-- DOĞRUDAN İLETİŞİM -->
+    <div class="section-title">Doğrudan İletişim</div>
+
+    <!-- E-Posta -->
+    <a href="mailto:BURAYA_MAIL_ADRESIN@gmail.com?subject=OMÜ%20Tıp%20Portalı%20Hakkında" class="iletisim-kart">
+        <div class="kart-sol">
+            <i class="fa-solid fa-envelope"></i>
+            <div class="kart-yazi">
+                <h4>E-Posta Gönder</h4>
+                <p>Görüş, öneri veya özel sorularınız için doğrudan mail iletin</p>
             </div>
         </div>
         <i class="fa-solid fa-chevron-right" style="color:#adb5bd;"></i>
