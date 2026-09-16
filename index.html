@@ -212,6 +212,32 @@
         Created by <span>Anıl Çırak</span>
     </div>
 </div>
+<!-- index.html içine göze çarpan yükleme butonu (başlangıçta gizli) -->
+<button id="pwa-install-btn" style="display:none; width:100%; padding:12px; background:#174276; color:#fff; border:none; border-radius:8px; font-weight:700; margin-bottom:15px; cursor:pointer;">
+    <i class="fa-solid fa-download"></i> Uygulamayı Telefona Yükle
+</button>
 
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById('pwa-install-btn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Tarayıcı hazır olduğunda butonu göster
+    installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            installBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+    }
+});
+</script>
 </body>
 </html>
