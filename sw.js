@@ -1,5 +1,5 @@
 // Her büyük güncellemede buradaki sürümü artır (v2, v3, v4...)
-const CACHE_NAME = 'omu-tip-v6';
+const CACHE_NAME = 'omu-tip-v7';
 
 const ASSETS_TO_CACHE = [
   './',
