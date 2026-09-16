@@ -76,7 +76,7 @@
         color: #fff;
     }
     .tab-pane { display: none; }
-    .tab-pane.active { display: block; }
+    .tab-pane.active { display: block !important; }
     
     .kaynak-kutu {
         border: 1px solid #e1e5eb;
@@ -118,17 +118,8 @@
         background: var(--acik-mavi);
         border-color: var(--omu-mavi);
     }
-    .footer-imza {
-        text-align: center;
-        margin-top: 30px;
-        padding-top: 15px;
-        border-top: 1px solid #e1e5eb;
-        font-size: 13px;
-        color: #6c757d;
-        font-weight: 600;
-    }
-    .footer-imza span { color: var(--omu-lacivert); font-weight: 700; }
-               /* Akordeon Tasarımı */
+    
+    /* Akordeon Tasarımı */
     .akordeon-item {
         border: 1px solid #e1e5eb;
         border-radius: 8px;
@@ -192,6 +183,17 @@
         border-color: var(--omu-mavi);
         transform: translateX(3px);
     }
+
+    .footer-imza {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid #e1e5eb;
+        font-size: 13px;
+        color: #6c757d;
+        font-weight: 600;
+    }
+    .footer-imza span { color: var(--omu-lacivert); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -215,17 +217,16 @@
             <div class="kaynak-baslik"><i class="fa-solid fa-child-reaching"></i> Büyüme Gelişme ve Davranış Bloğu</div>
             <div class="link-grid">
                 <a href="https://drive.google.com/drive/u/3/folders/1CN8VaXRHWOS-eW_-9rF8Urja8PNk2ejF" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
-                <a href="https://drive.google.com/drive/u/3/folders/1-y9Ma2Dpjk1z40Hf8_drKx8IYdyAeDw9" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>                
+                <a href="https://drive.google.com/drive/u/3/folders/1-y9Ma2Dpjk1z40Hf8_drKx8IYdyAeDw9" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
         </div>
         <div class="kaynak-kutu">
             <div class="kaynak-baslik"><i class="fa-solid fa-brain"></i> Beyin ve Duyular Bloğu</div>
             <div class="link-grid">
                 <a href="https://drive.google.com/drive/u/3/folders/1TK2iHnz4kYHAcBt63YweMX0RvKoDAuym" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
-                <a href="https://drive.google.com/drive/u/3/folders/1c-16hMzYFYGTwZr6EmZmuLruOChM38on" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>                
+                <a href="https://drive.google.com/drive/u/3/folders/1c-16hMzYFYGTwZr6EmZmuLruOChM38on" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
         </div>
-
         <div class="kaynak-kutu">
             <div class="kaynak-baslik"><i class="fa-solid fa-scale-balanced"></i> Etik ve Tıbbi Araştırmalar Bloğu</div>
             <div class="link-grid">
@@ -253,7 +254,7 @@
                 <a href="https://drive.google.com/drive/u/3/folders/16lF6E-In6ADbS8z0tS_dweMAd7cSlR7b" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
                 <a href="https://drive.google.com/drive/u/3/folders/1ZO2hw5lrMinuAk-ck86cUXE7tXc9Tkui" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
-        </div>      
+        </div>
         <div class="kaynak-kutu">
             <div class="kaynak-baslik"><i class="fa-solid fa-bacterium"></i> Biyolojik Etkenler Bloğu</div>
             <div class="link-grid">
@@ -261,7 +262,7 @@
                 <a href="https://drive.google.com/drive/u/3/folders/1zr19PTfBOVnqWGYcKQP93RExjHRBHGqz" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
         </div>
-    </div>
+    </div> <!-- Dönem 2 Kapanışı -->
 
     <!-- DÖNEM 3 KAYNAKLARI -->
     <div id="d3" class="tab-pane">
@@ -269,17 +270,16 @@
             <div class="kaynak-baslik"><i class="fa-solid fa-baby"></i> Gebelik ve Doğum Bloğu</div>
             <div class="link-grid">
                 <a href="https://drive.google.com/drive/u/3/folders/1qzGZYn94XCPotMofGTyNkCA8VMQiq7PV" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
-                <a href="https://drive.google.com/drive/u/3/folders/1_9jUnMkAlthXir398tsw752tVVNOQ4BR" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>                
+                <a href="https://drive.google.com/drive/u/3/folders/1_9jUnMkAlthXir398tsw752tVVNOQ4BR" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
         </div>
         <div class="kaynak-kutu">
             <div class="kaynak-baslik"><i class="fa-solid fa-disease"></i> Tümörler Bloğu</div>
             <div class="link-grid">
                 <a href="https://drive.google.com/drive/u/3/folders/1OgPyY0DgZhWdZMB9k6AnXmFWEzSz0iGf" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
-                <a href="https://drive.google.com/drive/u/3/folders/1tC5C6laVMjeYvCV1IQOWwSgK1cFpHKuU" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>                
+                <a href="https://drive.google.com/drive/u/3/folders/1tC5C6laVMjeYvCV1IQOWwSgK1cFpHKuU" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
         </div>
-
         <div class="kaynak-kutu">
             <div class="kaynak-baslik"><i class="fa-solid fa-lungs"></i> Solunum ve Dolaşım Bloğu</div>
             <div class="link-grid">
@@ -317,14 +317,14 @@
                 <a href="https://drive.google.com/drive/u/3/folders/1VyXtfrXffhOxXfpKEbakkhue1gtMO-T3" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
                 <a href="https://drive.google.com/drive/u/3/folders/1T53W41vZ5yWyQrWbujz6QSMt7wcW8n-j" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
-        </div>   
+        </div>
         <div class="kaynak-kutu">
             <div class="kaynak-baslik"><i class="fa-solid fa-person-cane"></i> Yaşlanma Bloğu</div>
             <div class="link-grid">
                 <a href="https://drive.google.com/drive/u/3/folders/1uL1PsDbkgDNvlqJ-x2GcaDro3ZrFJ2kc" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
                 <a href="https://drive.google.com/drive/u/3/folders/1wBkACq_tzhhEZU43CDvMKX6MmSuaOfMM" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
-        </div>      
+        </div>
         <div class="kaynak-kutu">
             <div class="kaynak-baslik"><i class="fa-solid fa-brain"></i> Nöropsikiyatriye Giriş Bloğu</div>
             <div class="link-grid">
@@ -332,7 +332,9 @@
                 <a href="https://drive.google.com/drive/u/3/folders/1bE_JZ9k-czvvXb6uff4K6UWNPXEm5v3-" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>
             </div>
         </div>
-     <!-- EK KAYNAKLAR -->
+    </div> <!-- İŞTE BU EKSİKTİ: Dönem 3 Kapanışı -->
+
+    <!-- EK KAYNAKLAR -->
     <div id="ek" class="tab-pane">
         <!-- Akordeon 1: Tıp & Çalışma Araçları -->
         <div class="akordeon-item">
@@ -387,7 +389,10 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> <!-- Ek Kaynaklar Kapanışı -->
+
+    <div class="footer-imza">Created by <span>Anıl Çırak</span></div>
+</div> <!-- Ana Container Kapanışı -->
 
 <script>
     function secim(id, btn) {
@@ -396,9 +401,10 @@
         document.getElementById(id).classList.add('active');
         btn.classList.add('active');
     }
+
     function toggleAkordeon(btn) {
-    const parent = btn.parentElement;
-    parent.classList.toggle('acik');
+        const parent = btn.parentElement;
+        parent.classList.toggle('acik');
     }
 </script>
 </body>
