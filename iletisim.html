@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMÜ Tıp - Geri Bildirim & İletişim</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --omu-lacivert: #0b1e36;
+        --omu-mavi: #174276;
+        --gri-arkaplan: #f4f6f9;
+    }
+    body { 
+        font-family: 'Inter', sans-serif; 
+        background: 
+            linear-gradient(rgba(11, 30, 54, 0.82), rgba(11, 30, 54, 0.90)),
+            url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 30px 12px;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+    .container { 
+        max-width: 650px; 
+        margin: 0 auto; 
+        background: #ffffff; 
+        padding: 25px; 
+        border-radius: 14px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--omu-mavi);
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    h2 { 
+        text-align: center; 
+        color: var(--omu-lacivert); 
+        margin: 0 0 10px 0;
+        font-size: 22px;
+        font-weight: 800;
+    }
+    .aciklama {
+        text-align: center;
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+    .iletisim-kart {
+        border: 1px solid #e1e5eb;
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fafbfc;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s;
+    }
+    .iletisim-kart:hover {
+        border-color: var(--omu-mavi);
+        background: #ffffff;
+        transform: translateY(-2px);
+    }
+    .kart-sol {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+    .kart-sol i {
+        font-size: 24px;
+        color: var(--omu-mavi);
+        width: 30px;
+        text-align: center;
+    }
+    .kart-yazi h4 { margin: 0; font-size: 15px; color: var(--omu-lacivert); font-weight: 700; }
+    .kart-yazi p { margin: 2px 0 0 0; font-size: 13px; color: #64748b; }
+    
+    .footer-imza {
+        text-align: center;
+        margin-top: 35px;
+        padding-top: 15px;
+        border-top: 1px solid #e1e5eb;
+        font-size: 13px;
+        color: #6c757d;
+        font-weight: 600;
+    }
+    .footer-imza span { color: var(--omu-lacivert); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Ana Menüye Dön
+    </a>
+
+    <h2><i class="fa-solid fa-envelope-open-text"></i> Geri Bildirim & İletişim</h2>
+    <p class="aciklama">
+        Hesaplamalarda gördüğünüz bir hata, güncellenen kurul kredileri veya eklenmesini istediğiniz ders arşivleri için iletişime geçebilirsiniz.
+    </p>
+
+    <!-- Google Forms / Hata Bildirimi -->
+    <a href="#" target="_blank" class="iletisim-kart">
+        <div class="kart-sol">
+            <i class="fa-solid fa-bug"></i>
+            <div class="kart-yazi">
+                <h4>Hata / Yanlış Not Bildir</h4>
+                <p>Google Form üzerinden anonim olarak ilet</p>
+            </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#adb5bd;"></i>
+    </a>
+
+    <!-- Kaynak Ekleme Talebi -->
+    <a href="#" target="_blank" class="iletisim-kart">
+        <div class="kart-sol">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <div class="kart-yazi">
+                <h4>Kaynak / Not Katkısı Yap</h4>
+                <p>Elinizdeki Drive ve ders notlarını ekletin</p>
+            </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#adb5bd;"></i>
+    </a>
+
+    <div class="footer-imza">Created by <span>Anıl Çırak</span></div>
+</div>
+
+</body>
+</html>
