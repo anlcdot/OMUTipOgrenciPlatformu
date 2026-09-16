@@ -128,6 +128,70 @@
         font-weight: 600;
     }
     .footer-imza span { color: var(--omu-lacivert); font-weight: 700; }
+    /* Akordeon Tasarımı */
+.akordeon-item {
+    border: 1px solid #e1e5eb;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #fafbfc;
+    overflow: hidden;
+}
+.akordeon-baslik {
+    width: 100%;
+    padding: 14px 16px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--omu-lacivert);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+.akordeon-baslik:hover {
+    background: #f1f5f9;
+}
+.ok-ikon {
+    font-size: 12px;
+    color: #64748b;
+    transition: transform 0.25s ease;
+}
+.akordeon-item.acik .ok-ikon {
+    transform: rotate(180deg);
+}
+.akordeon-icerik {
+    display: none;
+    padding: 8px 12px 14px 12px;
+    background: #ffffff;
+    border-top: 1px solid #edf2f7;
+    flex-direction: column;
+    gap: 6px;
+}
+.akordeon-item.acik .akordeon-icerik {
+    display: flex;
+}
+.ek-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--omu-mavi);
+    font-size: 13px;
+    font-weight: 600;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+}
+.ek-link:hover {
+    background: #e8f0fe;
+    border-color: var(--omu-mavi);
+    transform: translateX(3px);
+}
 </style>
 </head>
 <body>
@@ -269,17 +333,60 @@
             </div>
         </div>
      <!-- EK KAYNAKLAR -->
-    <div id="ek" class="tab-pane">
-        <div class="kaynak-kutu">
-            <div class="kaynak-baslik"><i class="fa-solid fa-child-reaching"></i> Ek Kaynak</div>
-            <div class="link-grid">
-                <a href="#" target="_blank" class="link-btn"><i class="fa-brands fa-google-drive"></i> Drive Notları</a>
-                <a href="#" target="_blank" class="link-btn"><i class="fa-solid fa-file-pen"></i> Çıkmışlar</a>                
-            </div>
-        </div>        
+<div id="ek" class="tab-pane">
+    <!-- Akordeon 1: Tıp & Çalışma Araçları -->
+    <div class="akordeon-item">
+        <button class="akordeon-baslik" onclick="toggleAkordeon(this)">
+            <span><i class="fa-solid fa-stethoscope"></i> Tıbbi Kütüphane & Simülasyonlar</span>
+            <i class="fa-solid fa-chevron-down ok-ikon"></i>
+        </button>
+        <div class="akordeon-icerik">
+            <a href="https://radiopaedia.org" target="_blank" class="ek-link">
+                <i class="fa-solid fa-x-ray"></i> Radiopaedia (Radyoloji Vakaları)
+            </a>
+            <a href="https://ecgstampede.com" target="_blank" class="ek-link">
+                <i class="fa-solid fa-heart-pulse"></i> ECG Stampede (İnteraktif EKG Eğitimi)
+            </a>
+            <a href="https://dermnetnz.org" target="_blank" class="ek-link">
+                <i class="fa-solid fa-disease"></i> DermNet (Dermatoloji Atlası)
+            </a>
+        </div>
     </div>
 
-    <div class="footer-imza">Created by <span>Anıl Çırak</span></div>
+    <!-- Akordeon 2: Fakülte & Hastane Bağlantıları -->
+    <div class="akordeon-item">
+        <button class="akordeon-baslik" onclick="toggleAkordeon(this)">
+            <span><i class="fa-solid fa-hospital-user"></i> OMÜ ve Hastane Portalları</span>
+            <i class="fa-solid fa-chevron-down ok-ikon"></i>
+        </button>
+        <div class="akordeon-icerik">
+            <a href="#" target="_blank" class="ek-link">
+                <i class="fa-solid fa-calendar-days"></i> Akademik Takvim & Blok Programı
+            </a>
+            <a href="#" target="_blank" class="ek-link">
+                <i class="fa-solid fa-book-bookmark"></i> OMÜ Kütüphane Veritabanları (UpToDate vb.)
+            </a>
+            <a href="#" target="_blank" class="ek-link">
+                <i class="fa-solid fa-map-location-dot"></i> Hastane Kat ve Servis Planı
+            </a>
+        </div>
+    </div>
+
+    <!-- Akordeon 3: İngilizce & TUS Kaynakları -->
+    <div class="akordeon-item">
+        <button class="akordeon-baslik" onclick="toggleAkordeon(this)">
+            <span><i class="fa-solid fa-graduation-cap"></i> USMLE / TUS & Makale Arşivi</span>
+            <i class="fa-solid fa-chevron-down ok-ikon"></i>
+        </button>
+        <div class="akordeon-icerik">
+            <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" class="ek-link">
+                <i class="fa-solid fa-newspaper"></i> PubMed Literatür Tarama
+            </a>
+            <a href="#" target="_blank" class="ek-link">
+                <i class="fa-brands fa-google-drive"></i> Ortak PDF ve Kitap Arşivi
+            </a>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -289,6 +396,10 @@
         document.getElementById(id).classList.add('active');
         btn.classList.add('active');
     }
+    function toggleAkordeon(btn) {
+    const parent = btn.parentElement;
+    parent.classList.toggle('acik');
+}
 </script>
 </body>
 </html>
