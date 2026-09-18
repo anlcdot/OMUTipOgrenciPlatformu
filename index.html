@@ -10,11 +10,12 @@
 <meta name="theme-color" content="#0b1e36">
 
 <!-- Service Worker Kaydı -->
+<!-- Service Worker Kaydı -->
 <script>
   if ('serviceWorker' in navigator) {
     let refreshing = false;
 
-    // Yeni sw devreye girdiği an sayfayı otomatik tazele
+    // Yeni sw aktifleştiğinde sayfayı tek sefer otomatik tazele
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!refreshing) {
         refreshing = true;
@@ -23,13 +24,16 @@
     });
 
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').then((reg) => {
-        // Her girişte arka planda güncelleme var mı diye kontrol et
-        reg.update();
-      }).catch((err) => console.log('PWA Hatası:', err));
+      // Her sayfa açılışında benzersiz bir sorgu göndererek tarayıcı önbelleğini atlar
+      navigator.serviceWorker.register('sw.js?t=' + Date.now())
+        .then((reg) => {
+          reg.update();
+          console.log('PWA Servis İşçisi Aktif');
+        })
+        .catch((err) => console.log('PWA Hatası:', err));
     });
   }
-</script>    
+</script>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
