@@ -1,5 +1,5 @@
-// Her büyük güncellemede buradaki sürümü artır (v2, v3, v4...)
-const CACHE_NAME = 'omu-tip-v8';
+// Her büyük güncellemede buradaki sürümü artır
+const CACHE_NAME = 'omu-tip-v9';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -33,12 +33,16 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// 3. NETWORK-FIRST: Önce internetten en günceli çek, hafızayı tazele; internet yoksa hafızadan ver
+// 3. NETWORK-FIRST (Tarayıcı HTTP önbelleğini baypas ederek doğrudan ağdan al)
 self.addEventListener('fetch', (event) => {
+  // Yalnızca GET isteklerini ele al
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    fetch(event.request)
+    // Ağ isteğini tarayıcı cache'ini atlayarak (revalidate ederek) yap
+    fetch(event.request, { cache: 'no-cache' })
       .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
         }
