@@ -1,5 +1,4 @@
-// Her büyük güncellemede buradaki sürümü artır
-const CACHE_NAME = 'omu-tip-v9';
+const CACHE_NAME = 'omu-tip-static';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -18,7 +17,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// 2. Eski sürüme (v8 vb.) ait tüm önbelleği temizle ve sayfaları hemen devral
+// 2. Eski sürümlere ait cache'leri temizle ve sayfaları hemen devral
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
