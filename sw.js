@@ -1,4 +1,5 @@
-const CACHE_NAME = 'omu-tip-static';
+const CACHE_VERSION = 'v3'; // Sürümü güncelledik, her büyük değişimde v4, v5 yap
+const CACHE_NAME = 'omu-tip-static-' + CACHE_VERSION;
 
 const ASSETS_TO_CACHE = [
   './',
@@ -9,7 +10,7 @@ const ASSETS_TO_CACHE = [
   'manifest.json'
 ];
 
-// 1. Yeni sürüm beklemeden anında kurulsun
+// 1. Yeni sürüm beklemeden kurulsun
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
@@ -17,13 +18,14 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// 2. Eski sürümlere ait cache'leri temizle ve sayfaları hemen devral
+// 2. Sadece eski sürümlere ait cache'leri temizle
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
-          if (key !== CACHE_NAME) {
+          // Sadece eski omu-tip-static önbelleklerini sil, diğer site verilerine dokunma
+          if (key.startsWith('omu-tip-static-') && key !== CACHE_NAME) {
             return caches.delete(key);
           }
         })
@@ -32,22 +34,20 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// 3. Ağ Stratejisi: Sayfa açılışlarında (HTML) doğrudan sunucudan al, sadece internetsizken önbellekten oku
+// 3. Ağ Öncelikli Strateji (Güvenli Hâl)
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
-  const isNavigation = event.request.mode === 'navigate' || 
-                       (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html'));
+  const isNavigation = event.request.mode === 'navigate';
 
   if (isNavigation) {
     event.respondWith(
-      fetch(event.request, { cache: 'no-cache' })
+      fetch(event.request) // no-cache bayrağı kaldırıldı, tarayıcıyı loop'a sokan ana etkenlerden biriydi
         .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
-          }
-          return networkResponse;
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
         })
         .catch(() => caches.match(event.request))
     );
