@@ -9,8 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b1e36">
 
-<!-- Service Worker Kaydı -->
-<!-- Service Worker Kaydı -->
+<!-- Service Worker Kaydı ve Otomatik Döngü Çözücü -->
 <script>
   if ('serviceWorker' in navigator) {
     let refreshing = false;
@@ -24,13 +23,24 @@
     });
 
     window.addEventListener('load', () => {
-      // Her sayfa açılışında benzersiz bir sorgu göndererek tarayıcı önbelleğini atlar
-      navigator.serviceWorker.register('sw.js?t=' + Date.now())
-        .then((reg) => {
-          reg.update();
-          console.log('PWA Servis İşçisi Aktif');
-        })
-        .catch((err) => console.log('PWA Hatası:', err));
+      // 1. ADIM: Eski ve hatalı (sonsuz döngü yaratan) SW kayıtlarını bul ve temizle
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          // Eğer kaydedilmiş script URL'sinde '?t=' (eski zaman damgası) varsa, bunu sistemden sil
+          if (registration.active && registration.active.scriptURL.includes('?t=')) {
+            registration.unregister().then(() => {
+              console.log('Hatalı Service Worker kaydı otomatik olarak silindi.');
+            });
+          }
+        }
+      }).then(() => {
+        // 2. ADIM: Temiz, parametresiz (Date.now() olmadan) standart kaydı yap
+        navigator.serviceWorker.register('sw.js')
+          .then((reg) => {
+            console.log('PWA Servis İşçisi Başarıyla Aktif Edildi');
+          })
+          .catch((err) => console.log('PWA Hatası:', err));
+      });
     });
   }
 </script>
