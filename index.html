@@ -26,7 +26,6 @@
       // 1. ADIM: Eski ve hatalı (sonsuz döngü yaratan) SW kayıtlarını bul ve temizle
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (let registration of registrations) {
-          // Eğer kaydedilmiş script URL'sinde '?t=' (eski zaman damgası) varsa, bunu sistemden sil
           if (registration.active && registration.active.scriptURL.includes('?t=')) {
             registration.unregister().then(() => {
               console.log('Hatalı Service Worker kaydı otomatik olarak silindi.');
@@ -34,7 +33,7 @@
           }
         }
       }).then(() => {
-        // 2. ADIM: Temiz, parametresiz (Date.now() olmadan) standart kaydı yap
+        // 2. ADIM: Standart temiz kaydı yap
         navigator.serviceWorker.register('sw.js')
           .then((reg) => {
             console.log('PWA Servis İşçisi Başarıyla Aktif Edildi');
@@ -191,9 +190,36 @@
         color: var(--omu-mavi);
     }
 
+    /* Kibar Dönem 1 Yönlendirme Butonu */
+    .d1-wrap {
+        text-align: center;
+        margin-top: 25px;
+    }
+    .d1-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #f2fafa;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    .d1-btn:hover {
+        background: rgba(255, 255, 255, 0.22);
+        border-color: rgba(255, 255, 255, 0.45);
+        transform: translateY(-2px);
+        color: #ffffff;
+    }
+
     /* Footer */
     .footer {
-        margin-top: 40px;
+        margin-top: 35px;
         text-align: center;
         font-size: 13px;
         color: #9aeded;
@@ -214,7 +240,7 @@
         <p>Güncel Not Hesaplayıcı ve Ders Arşivi</p>
     </div>
 
-    <!-- Kibar PWA Butonu (Başlığın hemen altında, menüden önce) -->
+    <!-- PWA Kurulum Butonu -->
     <div class="pwa-wrap">
         <button id="pwa-install-btn" class="pwa-btn">
             <i class="fa-solid fa-download"></i> Uygulamayı Yükle
@@ -265,11 +291,19 @@
         </a>
     </div>
 
+    <!-- Kibar Dönem 1 Yönlendirme Alanı -->
+    <div class="d1-wrap">
+        <a href="https://thepearwhosoldtheworld.github.io/OMUTipDonem1/" target="_blank" rel="noopener noreferrer" class="d1-btn">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Dönem 1 Platformuna Git
+        </a>
+    </div>
+
     <div class="footer">
         <span>OMÜ Tıp Öğrenci Portalı</span> • 2026<br>
         <small style="display: block; margin-top: 6px; font-size: 11px; opacity: 0.75; font-weight: 400;">
             Resmi kurum sayfası değildir, öğrenci inisiyatifidir
-          <small style="display: block; margin-top: 6px; font-size: 11px; opacity: 0.75; font-weight: 400;">
+        </small>
+        <small style="display: block; margin-top: 4px; font-size: 11px; opacity: 0.75; font-weight: 400;">
             Anıl Çırak tarafından hazırlandı.     
         </small>
     </div>
@@ -282,7 +316,6 @@ const installBtn = document.getElementById('pwa-install-btn');
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    // PWA kurulumu uygunsa butonu görünür yap
     if (installBtn) {
         installBtn.classList.add('aktif');
     }
