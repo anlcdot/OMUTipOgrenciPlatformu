@@ -190,31 +190,27 @@
         color: var(--omu-mavi);
     }
 
-    /* Kibar Dönem 1 Yönlendirme Butonu */
-    .d1-wrap {
-        text-align: center;
-        margin-top: 25px;
+    /* Dönem 1 Özel Kart Tasarımı */
+    .card-donem1 {
+        border-color: rgba(81, 123, 189, 0.35);
+        background: linear-gradient(135deg, #ffffff 0%, #f4f8ff 100%);
     }
-    .d1-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.12);
-        color: #f2fafa;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(8px);
-        border-radius: 20px;
-        font-size: 13px;
+    .card-donem1:hover {
+        border-color: var(--omu-mavi);
+        box-shadow: 0 12px 28px rgba(38, 48, 105, 0.25);
+    }
+    .icon-box.icon-d1 {
+        background: #e6f0ff;
+        color: var(--omu-lacivert);
+    }
+    .badge-d1 {
+        font-size: 11px;
+        background: rgba(38, 48, 105, 0.08);
+        color: var(--omu-lacivert);
+        padding: 2px 7px;
+        border-radius: 6px;
         font-weight: 700;
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-    .d1-btn:hover {
-        background: rgba(255, 255, 255, 0.22);
-        border-color: rgba(255, 255, 255, 0.45);
-        transform: translateY(-2px);
-        color: #ffffff;
+        letter-spacing: 0.3px;
     }
 
     /* Footer */
@@ -289,12 +285,22 @@
             </div>
             <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </a>
-    </div>
 
-    <!-- Kibar Dönem 1 Yönlendirme Alanı -->
-    <div class="d1-wrap">
-        <a href="https://thepearwhosoldtheworld.github.io/OMUTipDonem1/" target="_blank" rel="noopener noreferrer" class="d1-btn">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Dönem 1 Platformuna Git
+        <!-- Kart 4: Dönem 1 Portalı (Özel Vurgulu Kart) -->
+        <a href="https://thepearwhosoldtheworld.github.io/OMUTipDonem1/" target="_blank" rel="noopener noreferrer" class="card card-donem1">
+            <div class="card-left">
+                <div class="icon-box icon-d1">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="card-text">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <h3>OMÜ Tıp Dönem 1 Portalı</h3>
+                        <span class="badge-d1">Dönem 1</span>
+                    </div>
+                    <p>1. Sınıf komite not hesaplayıcı ve ders arşivine geçiş yapın</p>
+                </div>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square arrow-icon"></i>
         </a>
     </div>
 
