@@ -9,34 +9,24 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b1e36">
 
-<!-- Service Worker Kaydı ve Otomatik Döngü Çözücü -->
+<!-- Güvenli Service Worker Kaydı -->
 <script>
   if ('serviceWorker' in navigator) {
-    let refreshing = false;
-
-    // Yeni sw aktifleştiğinde sayfayı tek sefer otomatik tazele
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (!refreshing) {
-        refreshing = true;
-        window.location.reload();
-      }
-    });
-
     window.addEventListener('load', () => {
-      // 1. ADIM: Eski ve hatalı (sonsuz döngü yaratan) SW kayıtlarını bul ve temizle
+      // Eski hatalı (?t= parametreli) kayıtları temizle
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (let registration of registrations) {
           if (registration.active && registration.active.scriptURL.includes('?t=')) {
             registration.unregister().then(() => {
-              console.log('Hatalı Service Worker kaydı otomatik olarak silindi.');
+              console.log('Eski döngülü Service Worker kaldırıldı.');
             });
           }
         }
       }).then(() => {
-        // 2. ADIM: Standart temiz kaydı yap
+        // Temiz Service Worker kaydı (Reload tetiklemez, döngü sıfır risk)
         navigator.serviceWorker.register('sw.js')
           .then((reg) => {
-            console.log('PWA Servis İşçisi Başarıyla Aktif Edildi');
+            console.log('PWA Servis İşçisi Aktif Edildi');
           })
           .catch((err) => console.log('PWA Hatası:', err));
       });
@@ -96,13 +86,12 @@
         font-weight: 600;
     }
 
-    /* PWA Yükleme Butonu Alanı */
     .pwa-wrap {
         text-align: center;
         margin-bottom: 20px;
     }
     .pwa-btn {
-        display: none; /* Varsayılan olarak kapalı */
+        display: none;
         align-items: center;
         justify-content: center;
         gap: 8px;
@@ -123,10 +112,9 @@
         transform: translateY(-1px);
     }
     .pwa-btn.aktif {
-        display: inline-flex; /* Sadece PWA desteklenince görünür */
+        display: inline-flex;
     }
 
-    /* Grid Kart Tasarımı */
     .grid-menu {
         display: grid;
         grid-template-columns: 1fr;
@@ -190,7 +178,6 @@
         color: var(--omu-mavi);
     }
 
-    /* Dönem 1 Özel Kart Tasarımı */
     .card-donem1 {
         border-color: rgba(81, 123, 189, 0.35);
         background: linear-gradient(135deg, #ffffff 0%, #f4f8ff 100%);
@@ -213,7 +200,6 @@
         letter-spacing: 0.3px;
     }
 
-    /* Footer */
     .footer {
         margin-top: 35px;
         text-align: center;
@@ -236,7 +222,6 @@
         <p>Güncel Not Hesaplayıcı ve Ders Arşivi</p>
     </div>
 
-    <!-- PWA Kurulum Butonu -->
     <div class="pwa-wrap">
         <button id="pwa-install-btn" class="pwa-btn">
             <i class="fa-solid fa-download"></i> Uygulamayı Yükle
@@ -244,7 +229,6 @@
     </div>
 
     <div class="grid-menu">      
-        <!-- Kart 1: Not Hesaplayıcı -->
         <a href="hesaplayici.html" class="card">
             <div class="card-left">
                 <div class="icon-box">
@@ -258,7 +242,6 @@
             <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </a>
 
-        <!-- Kart 2: Kaynaklar -->
         <a href="kaynaklar.html" class="card">
             <div class="card-left">
                 <div class="icon-box">
@@ -272,7 +255,6 @@
             <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </a>
 
-        <!-- Kart 3: İletişim & Geri Bildirim -->
         <a href="iletisim.html" class="card">
             <div class="card-left">
                 <div class="icon-box">
@@ -286,7 +268,6 @@
             <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </a>
 
-        <!-- Kart 4: Dönem 1 Portalı (Özel Vurgulu Kart) -->
         <a href="https://thepearwhosoldtheworld.github.io/OMUTipDonem1/" target="_blank" rel="noopener noreferrer" class="card card-donem1">
             <div class="card-left">
                 <div class="icon-box icon-d1">
@@ -297,7 +278,7 @@
                         <h3>OMÜ Tıp Dönem 1 Portalı</h3>
                         <span class="badge-d1">Dönem 1</span>
                     </div>
-                    <p>Dönem 1 platformuna geçiş yapın</p>
+                    <p>1. Sınıf komite not hesaplayıcı ve ders arşivine geçiş yapın</p>
                 </div>
             </div>
             <i class="fa-solid fa-arrow-up-right-from-square arrow-icon"></i>
